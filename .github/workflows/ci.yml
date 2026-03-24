@@ -1,62 +1,58 @@
-name: CI/CD Pipeline FlaskApp
+name: CI Pipeline
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
   pull_request:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
-
-  # 🔹 Job 1 : Tests unitaires
-  test:
+  # Job 1 : Exécution des tests unitaires
+  tests:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Python
+      
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.13'
-
+          
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+          
       - name: Run tests
         run: pytest
+        
+    
 
-  # 🔹 Job 2 : Build et push Docker
-  build-and-push:
+  # Job 2 : Construction et Push de l'image Docker
+  build_and_push:
     runs-on: ubuntu-latest
-    needs: test   # ne s'exécute que si les tests passent
-
+    needs: tests 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: docker build -t flaskapp .
+      # Authentification à Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: abidjan2020
+          # ⚠️ NE METTEZ PAS VOTRE JETON DOCKER ICI. Laissez cette ligne exactement comme ça :
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 🔐 Connexion Docker Hub
-      - name: Login to Docker Hub
-        run: echo "7qiBWAV9BcIhxQOTv6TRwDs6ntE" | docker login -u "abidjan2020" --password-stdin
-
-      # 🔹 Tag images pour plusieurs registres
-      - name: Tag Docker image
-        run: |
-          docker tag flaskapp abidjan2020/flaskapp:latest
-          docker tag flaskapp registry.example.com/flaskapp:latest
-
-      # 🚀 Push vers Docker Hub (seulement si succès)
-      - name: Push to Docker Hub
-        if: success()
-        run: docker push abidjan2020/flaskapp:latest
-
-      # 🚀 Push vers registre privé
-      - name: Push to Private Registry
-        if: success()
-        run: docker push abidjan2020/flaskapp2:latest
+      # Construction et push vers vos dépôts Docker
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            abidjan2020/flaskapp2:latest
+            abidjan2020/faskapp:latest
