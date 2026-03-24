@@ -72,7 +72,6 @@ jobs:
           from: ciabidjan51@gmail.com
           subject: "❌ Échec du pipeline CI/CD"
           to: kcedrick96@gmail.com
-          from: ${{ secrets.EMAIL_USERNAME }}
           body: |
             Le pipeline CI/CD a échoué.
 
