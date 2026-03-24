@@ -2,9 +2,9 @@ name: CI/CD Pipeline FlaskApp
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
 
@@ -59,23 +59,4 @@ jobs:
       # 🚀 Push vers registre privé
       - name: Push to Private Registry
         if: success()
-        run: docker push registry.example.com/flaskapp:latest
-
-  # 🔹 Job 3 : Notification en cas d’échec
-  notify:
-    runs-on: ubuntu-latest
-    needs: [test, build-and-push]
-    if: failure()
-
-    steps:
-      - name: Send email notification
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ciabidjan51@gmail.com
-          password: Abidjan2020.
-          subject: "Echec du pipeline CI/CD"
-          to: your@email.com
-          from: GitHub Actions
-          body: "Le pipeline CI/CD a échoué. Veuillez vérifier les logs sur GitHub."
+        run: docker push abidjan2020/flaskapp2:latest
