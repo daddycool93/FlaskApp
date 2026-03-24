@@ -37,7 +37,7 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 465
           username: ciabidjan51@gmail.com # Remplacé par votre adresse
-          password: Abidjan2020@
+          password: Abidjan2020.
           subject: Échec des tests CI - FlaskApp
           to: ciabidjan51@gmail.com # Remplacé par votre adresse
           from: ciabidjan51@gmail.com # Remplacé par votre adresse
