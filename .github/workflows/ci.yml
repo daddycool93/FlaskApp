@@ -69,6 +69,7 @@ jobs:
           server_port: 587
           username: ciabidjan51@gmail.com
           password: Abidjan2020.
+          from: ciabidjan51@gmail.com
           subject: "❌ Échec du pipeline CI/CD"
           to: kcedrick96@gmail.com
           from: ${{ secrets.EMAIL_USERNAME }}
