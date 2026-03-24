@@ -70,7 +70,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: ${{ secrets.EMAIL_USERNAME }}
-          subject: "❌ Échec du pipeline CI/CD"
+          subject: "Échec du pipeline CI/CD - TP2"
           to: kcedrick96@gmail.com
           body: |
             Le pipeline CI/CD a échoué.
@@ -79,4 +79,4 @@ jobs:
             Branche: ${{ github.ref_name }}
             Commit: ${{ github.sha }}
 
-            Vérifiez les logs sur GitHub Actions.
+            Vérifiez les logs sur GitHub Actions afin de corriger l'erreur.
