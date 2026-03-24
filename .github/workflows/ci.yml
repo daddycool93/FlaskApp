@@ -38,19 +38,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 🔐 Login Docker Hub (sécurisé)
+      # 🔐 Login Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 🐳 Build + Push image
+      # 🐳 Build + Push vers 2 repos
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/flaskapp:latest
-            ${{ secrets.DOCKER_USERNAME }}/flaskapp:1.0
+            abidjan2020/flaskapp2:latest
+            abidjan2020/faskapp:latest
